@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PagesController::class,'root'])->name('root');
+
+Auth::routes();
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');
+    Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+});

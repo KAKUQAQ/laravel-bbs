@@ -18,8 +18,29 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav navbar-right">
                 <!-- Authentication Links -->
-                <li class="nav-item"><a class="nav-link" href="#">登录</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">注册</a></li>
+                @guest()
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                @else
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="https://laravel.com/img/logomark.min.svg" class="img-responsive img-circle" width="30px" height="30px" alt="Gravatar">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="">My page</a>
+                            <a class="dropdown-item" href="">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" id="logout" href="">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-block btn-danger" name="button">Logout</button>
+                                </form>
+                            </a>
+                        </div>
+                    </li>
+                @endguest
             </ul>
         </div>
     </div>
