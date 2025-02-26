@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class ResetPasswordController extends Controller
 {
@@ -27,4 +32,15 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
+    protected function sendResetResponse(Request $request, $response): RedirectResponse|Redirector|Application
+    {
+        session()->flash('success', 'Password reset successfully.');
+        return redirect($this->redirectPath());
+    }
 }

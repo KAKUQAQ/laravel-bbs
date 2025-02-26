@@ -25,14 +25,14 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="https://laravel.com/img/logomark.min.svg" class="img-responsive img-circle" width="30px" height="30px" alt="Gravatar">
+                            <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px" height="30px" alt="Gravatar">
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="">My page</a>
-                            <a class="dropdown-item" href="">Settings</a>
+                            <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">My page</a>
+                            <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">Settings</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" id="logout" href="">
+                            <a class="dropdown-item" id="logout" href="#">
                                 <form action="{{ route('logout') }}" method="POST">
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-block btn-danger" name="button">Logout</button>

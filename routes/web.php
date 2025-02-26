@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');
     Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 });
+
+Route::resource('users', UsersController::class)->only(['show', 'edit', 'update']);
