@@ -27,3 +27,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::resource('users', UsersController::class)->only(['show', 'edit', 'update']);
+
+Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
