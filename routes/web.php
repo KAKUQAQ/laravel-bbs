@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Mews\Captcha\Captcha;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,5 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('users', UsersController::class)->only(['show', 'edit', 'update']);
 
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+Route::resource('categories', 'CategoriesController', ['only' => ['show']]);

@@ -16,20 +16,20 @@ return new class extends Migration
     {
         $categories = [
           [
-              'name'=>'分享',
-              'description'=>'探索与发现',
+              'name'=>'Shared',
+              'description'=>'Exploration and Discovery',
           ],
           [
-              'name'=>'教程',
-              'description'=>'做中学',
+              'name'=>'Tutorial',
+              'description'=>'Learning by Practicing',
           ],
           [
-              'name'=>'问答',
-              'description'=>'不要回答',
+              'name'=>'Discussion',
+              'description'=>'Do Not Answer',
           ],
           [
-              'name'=>'公告',
-              'description'=>'站点公告',
+              'name'=>'Announcement',
+              'description'=>'Site Announcement',
           ]
         ];
         DB::table('categories')->insert($categories);
