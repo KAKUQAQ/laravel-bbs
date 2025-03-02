@@ -61,6 +61,7 @@
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
+                                    No account?<a href="{{ route('register') }}">Sign up now</a>
                                 @endif
                             </div>
                         </div>
