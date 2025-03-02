@@ -33,11 +33,16 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">My page</a>
-                            <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">Settings</a>
+                            <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">
+                                <i class="far fa-user mr-2"></i>
+                                My page</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">
+                                <i class="far fa-user mr-2"></i>
+                                Settings</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" id="logout" href="#">
-                                <form action="{{ route('logout') }}" method="POST">
+                                <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('Sure to logout?');">
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-block btn-danger" name="button">Logout</button>
                                 </form>

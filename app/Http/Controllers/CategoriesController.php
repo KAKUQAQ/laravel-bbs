@@ -11,9 +11,12 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    public function show(Category $category): Factory|View|Application
+    public function show(Category $category, Request $request, Topic $topic): Factory|View|Application
     {
-        $topics = Topic::where('category_id', $category->id)->paginate(20);
+        $topics = $topic->withOrder($request->order)
+            ->where('category_id', $category->id)
+            ->with('user', 'category')
+            ->paginate(20);
         return view('topics.index', compact('category', 'topics'));
     }
 }
