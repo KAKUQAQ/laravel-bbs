@@ -37,7 +37,7 @@ class TopicsController extends Controller
 	public function create(Topic $topic): Factory|View|Application
 	{
         $categories = Category::all();
-		return view('topics.create_and_edit', compact('topic', 'categories'));
+		return view('topics.create', compact('topic', 'categories'));
 	}
 
 	public function store(TopicRequest $request, Topic $topic): RedirectResponse
@@ -52,7 +52,7 @@ class TopicsController extends Controller
 	{
         $this->authorize('update', $topic);
         $categories = Category::all();
-		return view('topics.create_and_edit', compact('topic', 'categories'));
+		return view('topics.edit', compact('topic', 'categories'));
 	}
 
 	public function update(TopicRequest $request, Topic $topic): RedirectResponse
