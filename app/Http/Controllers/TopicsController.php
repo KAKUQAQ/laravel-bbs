@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Handlers\ImageUploadHandler;
 
 class TopicsController extends Controller
 {
@@ -70,4 +71,22 @@ class TopicsController extends Controller
 
 		return redirect()->route('topics.index')->with('message', 'Deleted successfully.');
 	}
+
+    public function uploadImage(Request $request, ImageUploadHandler $handler): array
+    {
+        $data = [
+            'success' => false,
+            'msg' => 'Upload failed',
+            'file_path' => ''
+        ];
+        if ($file = $request->upload_file) {
+            $result = $handler->save($file, 'topics', Auth::id(), 1024);
+            if ($result) {
+                $data['file_path'] = $result['path'];
+                $data['msg'] = 'Upload successfully';
+                $data['success'] = true;
+            }
+        }
+        return $data;
+    }
 }
