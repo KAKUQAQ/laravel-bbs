@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -18,6 +19,8 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $createdAt = Carbon::now()->subDays(rand(0, 30))->addHours(rand(1, 24));
+        $updatedAt = (rand(0, 1) ? $createdAt->clone()->addHours(rand(1, 48)) : $createdAt);
         $avatars = [
             '/uploads/images/default-avatars/1.png',
             '/uploads/images/default-avatars/2.jpg',
@@ -33,6 +36,8 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'introduction' => $this->faker->sentence(),
             'avatar' => $this->faker->randomElement($avatars),
+            'created_at' => $createdAt,
+            'updated_at' => $updatedAt,
         ];
     }
 

@@ -22,8 +22,8 @@
                             <label for="category_id"></label>
                             <select class="form-control" id="category_id" name="category_id" required>
                                 <option value="" hidden disabled selected>Please Select a Category</option>
-                                @foreach($categories as $value)
-                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ $topic->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -34,7 +34,7 @@
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary">
                                 <i class="far fa-save mr-2" aria-hidden="true"></i>
-                                Publish</button>
+                                Save</button>
                         </div>
                     </form>
                 </div>
