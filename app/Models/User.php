@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory;
+
+    use Notifiable{
+        notify as protected laravelNotify;
+    }
+
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +64,23 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAuthorOf(object $model): bool
     {
         return $this->id == $model->user_id;
+    }
+
+    public function notify($instance): void
+    {
+        if ($this->id == Auth::id() && get_class($instance) == 'Illuminate\Auth\Notifications\VerifyEmail') {
+            return;
+        }
+        if (method_exists($instance, 'toDatabase')) {
+            $this->increment('notification_count');
+        }
+        $this->laravelNotify($instance);
+    }
+
+    public function markAsRead(): void
+    {
+        $this->notification_count = 0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
     }
 }
