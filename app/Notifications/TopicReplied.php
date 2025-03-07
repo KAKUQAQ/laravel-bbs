@@ -7,7 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TopicReplied extends Notification{
+class TopicReplied extends Notification implements ShouldQueue
+{
     use Queueable;
 
     public function __construct(Reply $reply)
@@ -17,7 +18,7 @@ class TopicReplied extends Notification{
 
     public function via(mixed $notifiable): array
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     public function toDatabase(mixed $notifiable): array
@@ -34,6 +35,14 @@ class TopicReplied extends Notification{
             'topic_id' => $topic->id,
             'topic_title' => $topic->title,
         ];
+    }
+
+    public function toMail(mixed $notifiable): MailMessage
+    {
+        $url = $this->reply->topic->slug . '#reply' . $this->reply->id;
+        return (new MailMessage)
+            ->line('Someone has replied to your post.')
+            ->action('Click to view the reply', $url);
     }
 
     public function toArray(mixed $notifiable): array
