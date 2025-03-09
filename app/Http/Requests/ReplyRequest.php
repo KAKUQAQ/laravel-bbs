@@ -8,7 +8,8 @@ class ReplyRequest extends Request
     public function rules(): array
     {
         return [
-            'content' => 'required|min:2',
+            'message' => 'required|min:2',
+            'parent_id' => 'nullable|exists:replies,id',
         ];
     }
 

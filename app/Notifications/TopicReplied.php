@@ -27,7 +27,7 @@ class TopicReplied extends Notification implements ShouldQueue
         $link = $topic->slug . '#reply' . $this->reply->id;
         return [
             'reply_id' => $this->reply->id,
-            'reply_content' => $this->reply->content,
+            'reply_content' => $this->reply->message,
             'user_id' => $this->reply->user_id,
             'user_name' => $this->reply->user->name,
             'user_avatar' => $this->reply->user->avatar,

@@ -15,7 +15,7 @@ class ReplyFactory extends Factory
         $createdAt = Carbon::now()->subDays(rand(0, 30))->addHours(rand(1, 24));
         $updatedAt = (rand(0, 1) ? $createdAt->clone()->addHours(rand(1, 48)) : $createdAt);
         return [
-            'content' => $this->faker->sentence(),
+            'message' => $this->faker->sentence(),
             'topic_id' => rand(1, 100),
             'user_id' => rand(1, 10),
             'created_at' => $createdAt,

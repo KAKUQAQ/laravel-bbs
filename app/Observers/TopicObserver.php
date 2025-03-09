@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Topic;
+use Illuminate\Support\Facades\DB;
 
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
@@ -19,6 +20,11 @@ class TopicObserver
     {
         $topic->slug = env('APP_URL') . '/topics/' . $topic->id;
         $topic->save();
+    }
+
+    public function delete(Topic $topic)
+    {
+        DB::table('replies')->where('topic_id', $topic->id)->delete();
     }
 
 }
