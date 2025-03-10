@@ -70,9 +70,15 @@
                                                 </form>
                                             @endcan
                                         </div>
-                                        <div class="text-secondary mt-1">
-                                            {!! $childReply->message !!}
+                                        <div class="d-flex justify-content-between align-items-center mt-1">
+                                            <div class="text-secondary me-2">
+                                                {!! $childReply->message !!}
+                                            </div>
+                                            <button class="btn btn-link text-secondary p-0" type="button" onclick="showReplyForm({{ $childReply->id }})">
+                                                <i class="fa-regular fa-comments"></i>
+                                            </button>
                                         </div>
+
                                         <div id="reply-form-{{ $childReply->id }}" class="mt-2 collapse">
                                             <form action="{{ route('replies.store') }}" method="POST">
                                                 @csrf
