@@ -73,12 +73,53 @@
                                         <div class="text-secondary mt-1">
                                             {!! $childReply->message !!}
                                         </div>
+                                        <div id="reply-form-{{ $childReply->id }}" class="mt-2 collapse">
+                                            <form action="{{ route('replies.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="parent_id" value="{{ $childReply->id }}">
+                                                <textarea class="form-control" name="message" rows="2" placeholder="Something you wanna say..."></textarea>
+                                                <button type="submit" class="btn btn-primary btn-sm mt-2">Reply</button>
+                                            </form>
+                                        </div>
+                                        @if($childReply->replies->count())
+                                            <div class="collapse mt-2" id="replies-{{ $reply->id }}">
+                                                <ul class="list-unstyled">
+                                                    @foreach($childReply->replies as $grandReply)
+                                                        <li class="d-flex align-items-start">
+                                                            <div class="flex-grow-1">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div>
+                                                                        <a class="fw-bold text-decoration-none" href="{{ route('users.show', [$grandReply->user->id]) }}">{{ $grandReply->user->name }}</a>
+                                                                        replied
+                                                                        <strong>
+                                                                            <a class="text-decoration-none" href="{{ route('users.show', [$grandReply->parent->user->id]) }}">{{ $grandReply->parent->user->name }}</a>
+                                                                        </strong>：
+                                                                        <span class="text-muted small">· {{ $grandReply->created_at->diffForHumans() }}</span>
+                                                                    </div>
+                                                                    @can('destroy', $childReply)
+                                                                        <form action="{{ route('replies.destroy', $grandReply->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure to delete this reply?')">
+                                                                            @csrf
+                                                                            {{ method_field('DELETE') }}
+                                                                            <button type="submit" class="btn btn-link text-secondary p-0"><i class="far fa-trash-alt"></i></button>
+                                                                        </form>
+                                                                    @endcan
+                                                                </div>
+                                                                <div class="text-secondary mt-1">
+                                                                    {!! $grandReply->message !!}
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                       @endif
                                     </div>
                                 </li>
                             @endforeach
                         </ul>
                     </div>
                 @endif
+
             </div>
         </li>
         @endif <!-- 仅显示主评论 结束 -->
