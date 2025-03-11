@@ -64,7 +64,7 @@ class UsersController extends Controller
     public function stopImpersonating(Request $request): RedirectResponse|Application|Redirector
     {
         Auth::user()->leaveImpersonation();
-        
+
         session()->forget('impersonate');
 
         $redirectTo = $request->input('redirect_to', '/');
