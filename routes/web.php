@@ -6,6 +6,7 @@ use App\Http\Controllers\TopicsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Lab404\Impersonate\Controllers\ImpersonateController;
 use Mews\Captcha\Captcha;
 use Mews\Captcha\CaptchaController;
 
@@ -41,3 +42,7 @@ Route::post('upload_image', [TopicsController::class, 'uploadImage'])->name('top
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy', 'index']]);
 
 Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
+
+Route::get('/impersonate/{id}', [UsersController::class, 'impersonateUser'])->name('impersonate');
+
+Route::get('/stop-impersonating', [UsersController::class, 'stopImpersonating'])->name('stopImpersonating');

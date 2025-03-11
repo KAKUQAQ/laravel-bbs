@@ -24,5 +24,9 @@ class UsersTableSeeder extends Seeder
         $user->password = bcrypt('12345678');
         $user->avatar = '/uploads/images/default-avatars/1.png';
         $user->save();
+        $user->assignRole('Founder');
+
+        $user = User::find(2);
+        $user->assignRole('Maintainer');
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +17,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->isLocal()) {
+            View::composer('layouts.app', function ($view) {
+                $view->with('users', User::all());
+            });
+        }
     }
 
     /**

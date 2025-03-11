@@ -10,9 +10,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailTrait;
+use Spatie\Permission\Traits\HasRoles;
+use Lab404\Impersonate\Models\Impersonate;
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory;
+    use HasApiTokens, HasFactory, HasRoles, Impersonate;
 
     use Notifiable{
         notify as protected laravelNotify;

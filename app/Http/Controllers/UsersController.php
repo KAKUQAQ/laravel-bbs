@@ -10,6 +10,9 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -41,5 +44,30 @@ class UsersController extends Controller
         }
         $user->update($data);
         return redirect()->route('users.show', $user->id)->with('success', 'Profile updated successfully.');
+    }
+    /** 模拟登录*/
+    public function impersonateUser($id, Request $request): RedirectResponse|Redirector|Application
+    {
+        $user = User::find($id);
+        if ($user) {
+            Auth::user()->impersonate($user);
+
+            session(['impersonate' => true]);
+
+            $redirectTo = $request->input('redirect_to', '/');
+            return redirect($redirectTo);
+        }
+        return redirect()->back()->with('error', 'You cannot impersonate this user.');
+    }
+
+    /** 停止模拟*/
+    public function stopImpersonating(Request $request): RedirectResponse|Application|Redirector
+    {
+        Auth::user()->leaveImpersonation();
+        
+        session()->forget('impersonate');
+
+        $redirectTo = $request->input('redirect_to', '/');
+        return redirect($redirectTo);
     }
 }
