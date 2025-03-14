@@ -42,6 +42,11 @@ class Reply extends Model
     protected static function boot()
     {
         parent::boot();
+        static::created(function ($reply) {
+            if ($reply->topic) {
+                $reply->topic->updateReplyCount();
+            }
+        });
         static::deleting(function ($reply) {
             Reply::where('parent_id', $reply->id)->delete();
         });

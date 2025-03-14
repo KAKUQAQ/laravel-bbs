@@ -1,7 +1,7 @@
 <li class="d-flex @if(!$loop->last) border-bottom @endif">
     <div>
         <a href="{{ route('users.show', $notification->data['user_id']) }}">
-            <img src="{{ $notification->data['user_avatar'] }}" class="img-thumbnail mr-3" alt="{{ $notification->data['user_name'] }}" style="width: 48px; height: 48px;">
+            <img src="{{ $notification->data['user_avatar'] }}" class="img-thumbnail me-3" alt="{{ $notification->data['user_name'] }}" style="width: 48px; height: 48px;">
         </a>
     </div>
     <div class="flex-grow-1 ms-2">

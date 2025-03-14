@@ -33,7 +33,7 @@
                         </div>
                         <div class="well well-sm">
                             <button type="submit" class="btn btn-primary">
-                                <i class="far fa-save mr-2" aria-hidden="true"></i>
+                                <i class="far fa-save me-2" aria-hidden="true"></i>
                                 Save</button>
                         </div>
                     </form>

@@ -8,7 +8,7 @@ use App\Models\Reply;
 
 class RepliesTableSeeder extends Seeder
 {
-    use WithoutModelEvents;
+//    use WithoutModelEvents;
     public function run()
     {
         Reply::factory()->count(1000)->create();

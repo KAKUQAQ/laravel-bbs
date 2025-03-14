@@ -10,7 +10,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This is the subdomain where Horizon will be accessible from. If this
-    | setting is null, Horizon will reside under the same domain as the
+    | settings is null, Horizon will reside under the same domain as the
     | application. Otherwise, this value will serve as the subdomain.
     |
     */
@@ -113,7 +113,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Silencing a job will instruct Horizon to not place the job in the list
-    | of completed jobs within the Horizon dashboard. This setting may be
+    | of completed jobs within the Horizon dashboard. This settings may be
     | used to fully remove any noisy jobs from the completed jobs list.
     |
     */

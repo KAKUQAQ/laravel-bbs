@@ -16,6 +16,10 @@ class TopicReplied extends Notification implements ShouldQueue
         $this->reply = $reply;
     }
 
+    /**
+     * @param mixed $notifiable
+     * @return string[]
+     */
     public function via(mixed $notifiable): array
     {
         return ['database', 'mail'];

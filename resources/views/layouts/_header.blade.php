@@ -11,7 +11,7 @@
 
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link {{ active_class(if_route('topics.index')) }}" href="{{ route('topics.index') }}">Topics</a> </li>
                 <li class="nav-item"><a class="nav-link {{ category_nav_active(1) }}" href="{{ route('categories.show', 1) }}">Shared</a> </li>
                 <li class="nav-item"><a class="nav-link {{ category_nav_active(2) }}" href="{{ route('categories.show', 2) }}">Tutorial</a> </li>
@@ -27,7 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link mt-1 mr-3 font-weight-bold" href="{{ route('topics.create') }}">
+                        <a class="nav-link mt-1 me-3 font-weight-bold" href="{{ route('topics.create') }}">
                             <i class="fa-solid fa-plus"></i>
                         </a>
                     </li>
@@ -43,12 +43,19 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @can('manage_contents')
+                                <a class="dropdown-item" href="{{ url(config('administrator.uri')) }}">
+                                    <i class="fas fa-tachometer-alt me-2"></i>
+                                    Admin
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            @endcan
                             <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">
-                                <i class="far fa-user mr-2"></i>
+                                <i class="far fa-user me-2"></i>
                                 My page</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">
-                                <i class="far fa-user mr-2"></i>
+                                <i class="far fa-user me-2"></i>
                                 Settings</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" id="logout" href="#">

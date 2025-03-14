@@ -34,7 +34,7 @@
                         {{ $topic->created_at->diffForHumans() }}
                         ·
                         <i class="far fa-comment"></i>
-                        {{ $topic->reply_count }}
+                        {{ $topic->reply_count }}b
                     </div>
                     <div class="topic-body mt-4 mb-4">
                         {!! $topic->body !!}
