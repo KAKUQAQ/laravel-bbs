@@ -11,7 +11,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-    <meta name="description" content="@yield('description', 'KAKU\'s BBS')">
+    <meta name="description" content="@yield('description', 'KAKU\'s BBS'), {{ setting('seo_description') }}">
+    <meta name="keyword" content="@yield('keyword', setting('seo_keyword')), KAKU, bbs">
     <meta name="slug" content="@yield('slug', env('APP_URL'))">
 
     <!-- Styles -->

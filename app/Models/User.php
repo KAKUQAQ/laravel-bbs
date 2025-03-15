@@ -14,9 +14,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Spatie\Permission\Traits\HasRoles;
 use Lab404\Impersonate\Models\Impersonate;
 use Illuminate\Support\Str;
+use App\Models\Traits\ActiveUserHelper;
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, HasRoles, Impersonate;
+    use HasApiTokens, HasFactory, HasRoles, Impersonate, ActiveUserHelper;
 
     use Notifiable{
         notify as protected laravelNotify;
@@ -99,7 +100,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function setAvatarAttribute(string $path): void
     {
         if (! Str::startsWith($path, 'http')) {
-            $path = config('app.url') . "$path";
+            $path = config('app.url') . "/uploads/images/avatars/$path";
         }
         $this->attributes['avatar'] = $path;
     }

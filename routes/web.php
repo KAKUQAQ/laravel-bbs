@@ -46,3 +46,5 @@ Route::resource('notifications', 'NotificationsController', ['only' => ['index']
 Route::get('/impersonate/{id}', [UsersController::class, 'impersonateUser'])->name('impersonate');
 
 Route::get('/stop-impersonating', [UsersController::class, 'stopImpersonating'])->name('stopImpersonating');
+
+Route::get('permission-denied', [PagesController::class, 'permissionDenied'])->name('permission-denied');

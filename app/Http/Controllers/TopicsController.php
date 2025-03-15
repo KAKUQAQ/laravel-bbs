@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Topic;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -22,12 +23,13 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index(Request $request, Topic $topic): Factory|View|Application
+	public function index(Request $request, Topic $topic, User $user): Factory|View|Application
 	{
 		$topics = $topic->withOrder($request->order)
             ->with('user', 'category')
             ->paginate(20);
-		return view('topics.index', compact('topics'));
+        $active_users = $user->getActiveUsers();
+		return view('topics.index', compact('topics', 'active_users'));
 	}
 
     public function show(Topic $topic): Factory|View|Application

@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
         $user->name = 'KAKU';
         $user->email = 'kakuqaq@gmail.com';
         $user->password = bcrypt('12345678');
-        $user->avatar = '/uploads/images/default-avatars/1.png';
+        $user->avatar = config('app.url') . '/uploads/images/default-avatars/1.png';
         $user->save();
         $user->assignRole('Founder');
 

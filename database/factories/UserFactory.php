@@ -22,11 +22,11 @@ class UserFactory extends Factory
         $createdAt = Carbon::now()->subDays(rand(0, 30))->addHours(rand(1, 24));
         $updatedAt = (rand(0, 1) ? $createdAt->clone()->addHours(rand(1, 48)) : $createdAt);
         $avatars = [
-            '/uploads/images/default-avatars/1.png',
-            '/uploads/images/default-avatars/2.jpg',
-            '/uploads/images/default-avatars/3.jpeg',
-            '/uploads/images/default-avatars/4.png',
-            '/uploads/images/default-avatars/5.png',
+            config('app.url') . '/uploads/images/default-avatars/1.png',
+            config('app.url') . '/uploads/images/default-avatars/2.jpg',
+            config('app.url') . '/uploads/images/default-avatars/3.jpeg',
+            config('app.url') . '/uploads/images/default-avatars/4.png',
+            config('app.url') . '/uploads/images/default-avatars/5.png',
         ];
         return [
             'name' => $this->faker->name(),
